@@ -6,6 +6,7 @@
   "dependencies": [],
   "documentation": "https://github.com/avlemos/ha_solis_client",
   "iot_class": "local_push",
+  "issue_tracker": "https://github.com/avlemos/ha_solis_client/issues",
   "requirements": [],
   "version": "1.0.0"
 }
