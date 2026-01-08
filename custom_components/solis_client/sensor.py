@@ -21,6 +21,8 @@ from .coordinator import SolisDataUpdateCoordinator
 @dataclass
 class SolisSensorEntityDescription(SensorEntityDescription):
     value_fn: Callable[[dict], Any] = lambda data: None
+    # function that returns a dict of attributes for this sensor from the coordinator data
+    attributes_fn: Callable[[dict], dict] = lambda data: {}
 
 ENTITIES = [
     SolisSensorEntityDescription(
@@ -86,4 +88,11 @@ class SolisCoordinatorSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def extra_state_attributes(self) -> dict:
-        return dict(self.coordinator.data or {})
+        data = self.coordinator.data or {}
+        # let the description decide which attributes to expose for this entity
+        try:
+            return dict(self.entity_description.attributes_fn(data) or {})
+        except Exception:
+            _LOGGER = __import__("logging").getLogger(__name__)
+            _LOGGER.exception("attributes_fn failed")
+            return {}
