@@ -1,0 +1,2 @@
+DOMAIN = "solis"
+DEFAULT_TCP_PORT = 8899

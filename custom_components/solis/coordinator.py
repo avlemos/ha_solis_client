@@ -18,7 +18,7 @@ from typing import Optional
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from custom_components.solis_client.const import DEFAULT_TCP_PORT
+from custom_components.solis.const import DEFAULT_TCP_PORT
 
 START_BYTE = 0xA5
 END_BYTE = 0x15

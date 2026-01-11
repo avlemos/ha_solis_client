@@ -1,2 +1,0 @@
-DOMAIN = "solis_client"
-DEFAULT_TCP_PORT = 8899
