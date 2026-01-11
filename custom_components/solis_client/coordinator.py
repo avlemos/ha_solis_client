@@ -10,11 +10,10 @@ from __future__ import annotations
 import asyncio
 import binascii
 import logging
-import re
 import datetime
 from functools import reduce
 from struct import pack
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
@@ -64,9 +63,7 @@ class SolisTCPProtocol(asyncio.Protocol):
         # else:    
         parsed = {}
 
-        # try to extract numeric current power from the raw hex payload
         try:
-            # hexdata = binascii.hexlify(data).decode()
             # this is the packet size. if you have a different version
             # feel free to extend here
             if len(hexdata) == 206:
