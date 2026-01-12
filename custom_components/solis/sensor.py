@@ -113,7 +113,13 @@ ENTITIES = [
         name="Inverter Status",
         device_class=SensorDeviceClass.ENUM,
         options=["ACTIVE", "STANDBY"],
-        value_fn=lambda d: STATUS_MAPPING.get(d.get("inverter_status"), "UNKNOWN")
+        value_fn=lambda d: (
+            # 1. Check if the raw inverter_status is something other than 0 or 1
+            "FAULT" if d.get("inverter_status") not in [0, 1, None] else (
+                # 2. If it is 0/1, then apply the power-based logic
+                "STANDBY" if d.get("current_power_apo_t1_W") == 0 else "ACTIVE"
+            )
+        ),
     ),
     SolisSensorEntityDescription(
         key="solis_client_dc_current_pv1",
